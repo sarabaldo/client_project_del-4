@@ -1,0 +1,91 @@
+<!-- HOME PAGE - CLIENT PROJECT DELIVERY #4 -->
+
+<!-- This will be the Home page, the first one you open with live server -->
+<!-- it will contain basically minimilistic features that redirect to my design of Delivery #2 implementing a nav tag -->
+<!-- Why doing this? Because on Delivery #2, we had no nav tag at all! -->
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Men's Athletes Team</title>
+
+    <!-- Link to css sheets to style -->
+    <link rel="stylesheet" href="css/style.css">
+    <!-- TO CHECK IF THE RESET CSS SHEET SHOULF BE ADDED -->
+    <!-- <link rel="stylesheet" href="css/reset.css"> -->
+
+</head>
+
+<body>
+    <!-- Have a nav bar at the top to allow user to go back from performance_details page to the index.html page -->
+    <!-- Otherwise, this going back wouldn't be possible, this was the problem I had before implementing the nav bar on top.  -->
+    <nav>
+        <ul>
+            <li><a href="index.html">Home</a></li>
+            <li><a href="performance_details.html">Athlete's Selection</a></li>
+        </ul>
+    </nav>
+
+    <header>
+        <h1>Men's Athletes Team</h1>
+    </header>
+
+    <!-- do the container class so that later on it's easier to style -->
+    <!-- Important: had to create two distinct containers for page 1 and page 2 - this is because when having the media query for computer and tablets, I wanted different column numbers.  -->
+    <div class="container_page1">
+        
+        <!-- PREVIOUS SECTION -->
+        <!-- <div class="section">
+            <p> <strong>Welcome to the Men's Athletes Homepage!</strong> 
+            <p> You can find detailed information about athletes, competitions' results and coaches' comments.</p>    
+        </div> -->
+
+        <!-- USING LIBRARY VANILLA TILT TO GIVE A GLARE AND MOVING EFFECT ON THIS SECTION -->
+        <div class="section_tilt_card" data-tilt data-tilt-glare data-tilt-max-glare="0.8">
+            <p><strong>Welcome to the Men's Athletes Homepage!</strong></p>
+            <p>You can find detailed information about athletes, competitions' results, and coaches' comments.</p>
+        </div>
+
+        <!-- ADDING A CONTACT US FORM (Using the code seen in class!) -->
+        <form id="ContactForm" action="#" method="post">
+            <fieldset>
+                <legend>Contact Us</legend>
+    
+                <!-- Name input -->
+                <label for="contactName">Name</label>
+                <input type="text" id="contactName" name="name" placeholder="Enter your name" required><br>
+    
+                <!-- Email input -->
+                <label for="contactEmail">Email</label>
+                <input type="email" id="contactEmail" name="email" placeholder="email@example.com" required><br>
+    
+                <!-- Submit button -->
+                <input type="submit" value="Send"> 
+
+            </fieldset>
+        </form>
+    
+    </div>
+
+    <!-- Adding a footer - this in this case could say all rights reserved in terms of data -->
+    <footer>
+        <!-- Copyright sign - check SOIs in the pdf -->
+
+        <!-- Previous footer -->
+        <!-- <p>&copy; 2024 Athlete Performance. All rights reserved.</p> -->
+
+        <!-- Have the <span> element as an inline container that allows to manipulate text with JavaScript.
+        id="currentYear" gives this <span> an ID of currentYear -->
+        <p>&copy; <span id="currentYear"></span> Athlete Performance. All rights reserved.</p>
+    </footer>
+
+    <!-- LINKING MY JAVASCRIPT -->
+    <script src="js/java_trial1.js"> </script>
+
+    <!-- Following the video - linking to vanilla-tilt to use that library in JavaScript -->
+    <script type="text/javascript" src="js/vanilla-tilt.js"> </script>
+    
+</body>
+</html>

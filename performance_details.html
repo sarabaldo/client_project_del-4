@@ -1,0 +1,126 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Athlete Performance Selector</title>
+
+    <!-- Link to css sheets to style -->
+    <link rel="stylesheet" href="css/style.css">
+
+    <!-- TO CHECK IF THE RESET CSS SHEET SHOULF BE ADDED -->
+    <!-- <link rel="stylesheet" href="css/reset.css"> -->
+</head>
+
+<body>
+
+    <!-- nav bar -->
+    <nav>
+        <ul>
+            <li><a href="index.html">Home</a></li>
+            <li><a href="performance_details.html">Athlete's Selection</a></li>
+        </ul>
+    </nav>
+
+    <!-- This code below retakes the code from Delivery #2 just added the footer and navigation bar -->
+    <header>
+        <h1>Athlete Performance</h1>
+    </header>
+
+    <div class="container_page2">
+        <div class="section">
+            <h2>Select an Athlete</h2>
+            <select id="athleteSelect" onchange="displayAthleteData()" aria-label="Select an Athlete">
+                <option value="">--Select an Athlete--</option>
+            </select>
+        </div>
+
+        <div id="performanceSection" class="section hidden">
+            <h2>Performance Details</h2>
+            <p><strong>Name:</strong> <span id="athleteName"></span></p>
+            <p><strong>Overall Place:</strong> <span id="athletePlace"></span></p>
+            <p><strong>Time:</strong> <span id="athleteTime"></span></p>
+            <p><strong>Date:</strong> <span id="athleteDate"></span></p>
+            <p><strong>Meet:</strong> <span id="athleteMeet"></span></p>
+            <p><strong>Coach's Comments:</strong> <span id="athleteComments"></span></p>
+            <div id="athletePictureContainer"></div>
+        </div>
+    </div>
+
+    <!-- Footer that has been added - the same as the one on the home page regarding the data ownership -->
+    <footer>
+        <!-- Copyright sign - check SOIs in the pdf -->
+
+        <!-- Previous footer -->
+        <!-- <p>&copy; 2024 Athlete Performance. All rights reserved.</p> -->
+
+        <!-- Have the <span> element as an inline container that allows to manipulate text with JavaScript.
+        id="currentYear" gives this <span> an ID of currentYear -->
+        <p>&copy; <span id="currentYear"></span> Athlete Performance. All rights reserved.</p>
+    </footer>
+
+    <script>
+        let athleteData = [];
+
+        // Load the athlete data from the JSON file
+        fetch('athlete_data.json')
+            .then(response => response.json())
+            .then(data => {
+                athleteData = data;
+                populateAthleteSelect();
+            });
+
+        // Populate the dropdown menu with athlete names
+        function populateAthleteSelect() {
+            const athleteSelect = document.getElementById('athleteSelect');
+            athleteData.forEach(athlete => {
+                const option = document.createElement('option');
+                option.value = athlete.athlete_id;
+                option.text = athlete.name;
+                athleteSelect.appendChild(option);
+            });
+        }
+
+        // Display the selected athlete's performance data
+        function displayAthleteData() {
+            const selectedAthleteId = document.getElementById('athleteSelect').value;
+            const athlete = athleteData.find(a => a.athlete_id === selectedAthleteId);
+
+            if (athlete) {
+                document.getElementById('athleteName').textContent = athlete.name;
+                document.getElementById('athletePlace').textContent = athlete.overall_place;
+                document.getElementById('athleteTime').textContent = athlete.time;
+                document.getElementById('athleteDate').textContent = athlete.date;
+                document.getElementById('athleteMeet').textContent = athlete.meet;
+                document.getElementById('athleteComments').textContent = athlete.comments;
+                
+                const pictureContainer = document.getElementById('athletePictureContainer');
+                pictureContainer.innerHTML = '';  // Clear previous picture
+                if (athlete.picture) {
+                    const img = document.createElement('img');
+                    // IMPORTANT: Before I had some problems with loading the images this is the only way it works (athlete.athlete_id). Also if the path is ../images/profiles.. the image does not load. 
+                    img.src = "images/profiles/"+ athlete.athlete_id+".jpg";
+                    img.alt = 'Athlete Picture';
+                    pictureContainer.appendChild(img);
+                } 
+                // Else - there is no image for that athlete - take the deafult picture
+                else {
+                    const img = document.createElement('img');
+                    // Changed the default picture with one downloaded from Google, because I had some problems with the one given. 
+                    img.src = "images/profiles/default_image_2.jpg";
+                    img.alt = '';
+                    pictureContainer.appendChild(img);
+                }
+
+                // Show the performance section
+                document.getElementById('performanceSection').classList.remove('hidden');
+            }
+        }
+    </script>
+
+    <!-- LINKING MY JAVASCRIPT -->
+    <script src="js/java_trial1.js"> </script>
+    <!-- not using the Vanilla tilt library on the 2nd page - so no need to like that js file -->
+
+</body>
+</html>

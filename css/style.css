@@ -1,0 +1,325 @@
+/* DELIVERY 4 CLIENT PROJECT */
+
+/* STEP 1) Create a :root{ with colors for light mode */
+
+/* Using var() and root to make the code more easy to change and maintain*/
+/* These colors will change later on with another @media query for those that use dark mode instead. */
+/* Check SOIs reported in the pdf to use the root{  and var() */
+:root{
+    --primary-color: #2d4052; 
+    --secondary-color: #e95a45; 
+    --background-color: #edf1f2; 
+    --text-color: #2d4052; 
+    --button-background: #35a1e0; 
+    --button-text: #f9f9f9; 
+    --focus-outline: #f4a319;
+}
+
+/* ------------------------------------------------- */
+/* STEP 2) Style Body, h1, h2 and footer */
+/* styling the body section */
+body {
+    font-family: 'Times New Roman', Arial, sans-serif;
+    /* background color as #ecf0f1 - always refer to the root to check out the colours  */
+    background-color: var(--background-color);
+    color: var(--text-color);
+    /* removing any default margin (should this maybe go to the reset.css??) */
+    margin: 0;
+    padding: 20px;
+}
+
+/* styling headers */
+h1 {
+    /* adding 20 pixels on top of the margin */
+    margin-top: 20px;
+    /* make the font size bigger to make ti stands out */
+    font-size: 32px;
+    text-align: center;
+    color: var(--primary-color);
+    /* make the height of the line twice as the font */
+    line-height: 64px;
+}
+
+h2 {
+    /* reducing the font size for h2 since it's less relevant than h1 */
+    font-size: 24px;
+    margin-bottom: 10px;
+    color: var(--secondary-color);
+}
+
+footer {
+    text-align: center;
+    margin-top: 20px;
+    padding-top: 20px;
+    padding-bottom: 20px;
+    background-color: var(--primary-color);
+    color: var(--button-text);
+    /* make it slightly round */
+    border-radius: 5px;
+}
+
+/* ------------------------------------------------- */
+/* STEP 3) Nav Bar styling */
+/* Styled after because was added after in the code */
+
+nav {
+    background-color: var(--primary-color);
+    /* adding 10px on top and bottom - 0 to left and right */
+    padding: 10px 0;
+    text-align: center;
+}
+
+nav ul {
+    /* none - meaning no bullet points are going to show */
+    list-style-type: none;
+    /* removing deafult margin an padding */
+    margin: 0;
+    padding: 0;
+}
+
+nav ul li {
+    /* want them next to each other in the nav bar and have 20px between them  */
+    display: inline;
+    margin-right: 20px;
+}
+
+/* style the anchor of the links to be white and in bold */
+nav ul li a {
+    color: var(--button-text);
+    font-weight: bold;
+}
+
+/* hover and focus for the nav bar when clicking or tabbing on the two links they'll became red  */
+/* searched to know how to combine them together (hover nd focus) - check sois in the pdf */
+nav ul li a:hover,
+nav ul li a:focus {
+    color: var(--secondary-color);
+}
+
+/* ----------------------------------- */
+/* STEP 4) Mobile Phone Layout */
+
+/* stylyng the container class */
+.container_page1, .container_page2 {
+    display: grid;
+    /* have only one column in the mobile view - maybe when the screen is going to be bigger (computer or tablet) there will be more than 1 column. */
+    grid-template-columns: 1fr;
+    margin: 0 auto;
+    /* adding 20 pixel from the content to the container border */
+    padding: 20px;
+    background-color: var(--button-text);
+    border-radius: 10px;
+}
+
+/* Styling the section where users will select an athlete */
+/* Keeping the styling on the normal section - so that in case only need to uncomment the class .section_tilt_card in the index.html file */
+.section {
+    background-color: var(--background-color);
+    padding: 20px;
+    border-radius: 5px;
+}
+
+/* Styling the new section that uses the Vanilla Tilt library */
+.section_tilt_card{
+    background-color: var(--background-color);
+    padding: 20px;
+    border-radius: 5px;
+}
+
+/* styling the ID athlete select */
+#athleteSelect {
+    /* take the full width of the container */
+    width: 100%;
+    padding: 10px;
+    border-radius: 5px;
+    border: 1px solid var(--primary-color);
+}
+
+/* styling the picture container */
+/* will be round, more like a profile picture. */
+/* However important: the pictures don't really work at the moment, the container is there but they don't show up, I'm working to solve this. */
+/* asked chat gpt how to do this */
+#athletePictureContainer img {
+    display: block;
+    margin: 10px auto;
+    border-radius: 50%;
+    width: 200px;
+    height: 200px;
+}
+
+/* ---------------------------------------------- */
+/* STEP 4) Dark mode User preferences*/
+/* Using the @media query to with preferred color scheme as dark color and use again the root to only having to change the colors directly in the root instead of in every line */
+
+/* given the colors of light mode, asked chat gpt to give me these colors for dark mode that would respectt the guidelines of accessibility */
+@media (prefers-color-scheme: dark) {
+    :root {
+        --primary-color: #f9f9f9; 
+        --secondary-color: #ffd633; 
+        --background-color: #2e4153; 
+        --text-color: #f9f9f9; 
+        --section-color: #375065; 
+        --button-background: #36a0db; 
+        --button-text: #38536a; 
+        --focus-outline: #f5a11f; 
+    }
+    /* made a mistake intially here, repeated the styling of body, h1, h2 and so on for dark mode, but after with also the implementation of :root there is no need of that, because it would create a repetition. */
+}
+
+/* --------------------------------------------- */
+/* STEP 5) Transitions*/
+/* using hover and focus so that both by using the keyboard and mouse it will work. 
+Doing this effect on the .section and the athlete name */
+/* Chat gpt helped with this step */
+
+.section:hover, .section:focus {
+    /* enlarging */
+    transform: scale(1.05);
+    /* scaling trasition over 0.3 sec */
+    transition: transform 0.3s ease;
+}
+
+/* Applying the same hover and focus effects for the class .section_tilt_card */
+.section_tilt_card:hover, .section_tilt_card:focus{
+    transform: scale(1.05);
+    transition: transform 0.3s ease;
+}
+
+/* Athlete names within the section - reveals more details on hover/focus */
+.athlete-name:hover, .athlete-name:focus {
+    /* changing cursor to a pointer when openng the drop down menu */
+    cursor: pointer; 
+    /* adding outline */
+    outline: 2px solid var(--focus-outline); 
+    /* transition duration of 0.3 sec */
+    transition: transform 0.3s ease; 
+}
+
+/* --------------------------------------------- */
+/* STEP 5) Preferred Reduced Motion */
+/* using @media query to reduce motions in the case that is the preference of the user */
+
+@media (prefers-reduced-motion: reduce) {
+    .section:hover, .section:focus {
+        /* remove enlarging effect and transition */
+        transform: none; 
+        transition: none; 
+    }
+
+    .section_tilt_card:hover, .section_tilt_card:focus{
+        transform: none; 
+        transition: none; 
+    }
+
+    .athlete-name:hover, .athlete-name:focus {
+        /* keeping the pointer and same outline - help to navigate for users */
+        cursor: pointer; 
+        outline: 2px solid var(--focus-outline); 
+        /* remove all transformation and transitions */
+        transform: none; 
+        transition: none; 
+    }
+}
+
+/* -------------------------------------------------------- */
+/* STEP 6) Add Tablet and Computer Design */
+/* Using @media queries to be able to update the design based on the size of the screen */
+
+/* TABLET LAYOUT (600px and above) */
+@media screen and (min-width: 600px) {
+    /* Had a problem, before I had only one class .container for both pages, however now with tablet and computer screens I want one column only for the home page and 2 columns for the performance_details page. */
+    .container_page1 {
+        /* have one single column for index.html page */
+        grid-template-columns: 1fr; 
+    }
+    
+    .container_page2 {
+        /* have two columns for the performance_details.html page */
+        grid-template-columns: 1fr 1fr;
+        /* gap of 20 pixels between columns for the tablet design */
+        gap: 20px; 
+    }
+
+    #athleteSelectContainer {
+        grid-column: 1;
+    }
+
+    .performanceDetails {
+        grid-column: 2;
+    }
+}
+
+/* COMPUTER LAYOUT (1000px and above) */
+@media screen and (min-width: 1000px) {
+    .container_page1 {
+        grid-template-columns: 1fr; 
+    }
+    
+    .container_page2 {
+        grid-template-columns: 1fr 1fr;
+        /* Increasing the gap between the 2 columns with computer screens */
+        gap: 40px; 
+    }
+
+    #athleteSelectContainer {
+        grid-column: 1;
+    }
+
+    .performanceDetails {
+        grid-column: 2;
+    }
+}
+
+/* --------------------------------------- */
+/* STEP 7) Styling the just added Form (Contact Us) */
+/* Styling for the forms in both pages */
+form {
+    /* adding 20 px of space above and inside the form */
+    margin-top: 20px;
+    padding: 20px;
+    /* rounding corners */
+    border-radius: 5px;
+    background-color: var(--background-color);
+}
+
+fieldset {
+    /* removing default border */
+    border: none;
+    /* removing internal padding */
+    padding: 0;
+}
+
+legend {
+    font-weight: bold;
+    color: var(--primary-color);
+    /* add 10 px space below the legend text*/
+    margin-bottom: 10px;
+}
+
+label {
+    display: block;
+    margin-top: 10px;
+    color: var(--primary-color);
+}
+
+input[type="text"],
+input[type="email"],
+textarea,
+input[type="submit"] {
+    /* take the full width */
+    width: 100%;
+    /* adding space in the padding and top margin */
+    padding: 10px;
+    margin-top: 5px;
+    border: 1px solid var(--primary-color);
+    border-radius: 5px;
+    /* making the padding and border inside the total width and height, otherwise they are out of the box */
+    box-sizing: border-box;
+}
+
+input[type="submit"] {
+    background-color: var(--button-text);
+    color: var(--text-color);
+    cursor: pointer;
+    margin-top: 20px;
+}
